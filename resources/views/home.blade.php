@@ -13,9 +13,13 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <div class="createnewevent">
+                      <a href="/createevent"><button type="button" class="btn btn-primary btn-lg">Create new event</button></a>
+                    </div>
                     <div class="eventcontainerlist">
                       <ul>
-                        <li>{{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}</li>
+                        <!-- <li>{{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}</li> -->
+                        <li>{{ $email }}</li>
                       </ul>
                     </div>
                     You are logged in!
