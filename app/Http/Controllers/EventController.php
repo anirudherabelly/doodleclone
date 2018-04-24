@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Event;
 use Illuminate\Http\Request;
 use Auth;
+use App\Mail\DemoEmail;
+use Illuminate\Support\Facades\Mail;
 
 class EventController extends Controller
 {
@@ -47,6 +49,7 @@ class EventController extends Controller
         $event->emailid = $user->email;
         $event->save();
 
+        Mail::to("receiver@example.com")->send(new DemoEmail(route('events.show',$event->id)));
         //redirect
         return redirect()->route('events.show',$event->id);
     }
