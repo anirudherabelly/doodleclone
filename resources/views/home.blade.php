@@ -14,15 +14,16 @@
                         </div>
                     @endif
                     <div class="createnewevent">
-                      <a href="/createevent"><button type="button" class="btn btn-primary btn-lg">Create new event</button></a>
+                      <a href="/events/create"><button type="button" class="btn btn-primary btn-lg">Create new event</button></a>
+                      <a href="/events/create"><button type="button" class="btn btn-primary btn-lg">Create new Poll</button></a>
                     </div>
-                    <div class="eventcontainerlist">
+                    <!-- <div class="eventcontainerlist">
                       <ul>
-                        <!-- <li>{{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}</li> -->
+                        <li>{{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}</li>
                         <li>{{ $email }}</li>
-                      </ul>
+                      </ul> -->
                     </div>
-                    You are logged in!
+                    <!-- You are logged in! -->
                 </div>
             </div>
         </div>

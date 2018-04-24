@@ -22,7 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/about', function () {
     return view('pages.about');
 });
-Route::get('/createevent', function () {
-    return view('pages.createevent');
-});
+// Route::get('/createevent', function () {
+//     return view('pages.createevent');
+// });
+
+Route::resource('events','EventController');
 // Route::get('/events', 'HomeController@index')->name('home');
