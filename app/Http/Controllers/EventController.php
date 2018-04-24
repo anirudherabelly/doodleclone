@@ -47,9 +47,34 @@ class EventController extends Controller
         $event->location = $request->location;
         $event->description = $request->description;
         $event->emailid = $user->email;
+
+        // if(empty($request->session()->get('event'))){
+        //     $event=new Event;
+        //     $event->title = $request->title;
+        //     $event->location = $request->location;
+        //     $event->description = $request->description;
+        //     $event->emailid = $user->email;
+        //     $request->session()->put('event', $event);
+        // }else{
+        //     $event = $request->session()->get('event');
+        //     $event->title = $request->title;
+        //     $event->location = $request->location;
+        //     $event->description = $request->description;
+        //     $event->emailid = $user->email;
+        //     // $product->fill($validatedData);
+        //     $request->session()->put('event', $event);
+        // }
         $event->save();
 
-        Mail::to("receiver@example.com")->send(new DemoEmail(route('events.show',$event->id)));
+        $emailerListString=$request->emaillist;
+        if(isset($emailerListString))
+        {
+          $emailerList=explode(";",$emailerListString );
+          foreach($emailerList as $emailTo)
+          {
+            Mail::to($emailTo)->send(new DemoEmail(route('events.show',$event->id)));
+          }
+        }
         //redirect
         return redirect()->route('events.show',$event->id);
     }
