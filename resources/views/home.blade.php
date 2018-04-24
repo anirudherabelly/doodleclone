@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
 
@@ -17,11 +17,25 @@
                       <a href="/events/create"><button type="button" class="btn btn-primary btn-lg">Create new event</button></a>
                       <a href="/events/create"><button type="button" class="btn btn-primary btn-lg">Create new Poll</button></a>
                     </div>
-                    <!-- <div class="eventcontainerlist">
-                      <ul>
-                        <li>{{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}</li>
-                        <li>{{ $email }}</li>
-                      </ul> -->
+                     <div class="eventcontainerlist">
+                      <h2>Your Events</h2>
+                      <table class="table">
+                        <thead>
+                          <th>#</th>
+                          <th>Title</th>
+                          <th>Description</th>
+                        </thead>
+                        <tbody>
+                          @foreach($events as $event)
+                            <tr>
+                              <td>{{$event->id}}</td>
+                              <td>{{$event->title}}</td>
+                              <td>{{substr($event->description,0,50)}}{{strlen($event->description)>50?"...":""}}</td>
+                              <td><a href="{{ route('events.show',$event->id)}}" class="btn btn-sm btn-default">Administer</a></td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
                     </div>
                     <!-- You are logged in! -->
                 </div>

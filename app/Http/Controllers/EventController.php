@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Event;
 use Illuminate\Http\Request;
+use Auth;
 
 class EventController extends Controller
 {
@@ -38,10 +39,12 @@ class EventController extends Controller
           'title'=>'required|max:255'
         ));
         //insert into db
+        $user = Auth::user();
         $event=new Event;
         $event->title = $request->title;
         $event->location = $request->location;
         $event->description = $request->description;
+        $event->emailid = $user->email;
         $event->save();
 
         //redirect

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-
+use App\Event;
 class HomeController extends Controller
 {
     /**
@@ -24,6 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         $useremail = Auth::user()->email;
-        return view('home')->with("email",$useremail);
+        $events = Event::all();
+        return view('home')->with("events",$events);
     }
 }
