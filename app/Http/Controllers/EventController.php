@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Mail\DemoEmail;
 use Illuminate\Support\Facades\Mail;
-
+use App\EventSlot;
+use App\Participant;
+use App\EventParticipation;
+use App\EventParticipationSlot;
 class EventController extends Controller
 {
     /**
@@ -65,6 +68,37 @@ class EventController extends Controller
         //     $request->session()->put('event', $event);
         // }
         $event->save();
+        $dates=$request->date;
+        $starttimes=$request->starttime;
+        $endtimes=$request->endtime;
+
+        $participant=new Participant;
+        $participant->name=$user->name;
+        $participant->emailid=$event->emailid;
+        $participant->save();
+
+        $eventParticipation= new EventParticipation;
+        $eventParticipation->eventid=$event->id;
+        $eventParticipation->emailid=$event->emailid;
+        $eventParticipation->save();
+
+        $eventSlot=new EventSlot;
+        $eventParticipationSlot=new EventParticipationSlot;
+        foreach($dates as $key=>$value){
+          $eventSlot->eventid=$event->id;
+          $eventSlot->date=$value;
+          $eventSlot->starttime=$starttimes[$key];
+          $eventSlot->endtime=$endtimes[$key];
+          $eventSlot->save();
+          $eventParticipationSlot->eventid=$event->id;
+          $eventParticipationSlot->slotid=$eventSlot->id;
+          $eventParticipationSlot->emailid=$event->emailid;
+          $eventParticipationSlot->response=true;
+          $eventParticipationSlot->save();
+          // $eventSlot.save();
+        }
+
+
 
         $emailerListString=$request->emaillist;
         if(isset($emailerListString))

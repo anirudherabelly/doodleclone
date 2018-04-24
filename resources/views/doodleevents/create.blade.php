@@ -16,7 +16,7 @@
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
             cell1.innerHTML = "Date :<input type='date' name='date[]'>";
-            cell2.innerHTML = "Start Time :<input type='time' name='time[]'>";
+            cell2.innerHTML = "Start Time :<input type='time' name='starttime[]'>";
             cell3.innerHTML = "End Time :<input type='time' name='endtime[]'>";
             // cell1.innerHTML = "{!! Form::label('date[]', 'Date:') !!}{!! Form::Date('date[]') !!}";
             // cell2.innerHTML = "{!! Form::label('starttime[]', 'Start Time:') !!}{!! Form::Time('starttime[]') !!}";
@@ -60,7 +60,7 @@
             <table class="table" id="myTable">
               <tr>
                 <td>Date :<input type="date" name="date[]"></td>
-                <td>Start Time :<input type="time" name="time[]"></td>
+                <td>Start Time :<input type="time" name="starttime[]"></td>
                 <td>End Time :<input type="time" name="endtime[]"></td>
               </tr>
             </table>
