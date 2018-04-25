@@ -14,11 +14,12 @@ class CreateEventSlotsTable extends Migration
     public function up()
     {
         Schema::create('event_slots', function (Blueprint $table) {
-            $table->increments('slotid');
+            $table->integer('slotid');
             $table->integer('eventid');
             $table->date('date');
             $table->time('starttime');
             $table->time('endtime');
+            $table->primary(['slotid','eventid']);
             $table->timestamps();
         });
     }

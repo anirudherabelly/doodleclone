@@ -14,10 +14,12 @@ class CreateEventParticipationSlotsTable extends Migration
     public function up()
     {
         Schema::create('event_participation_slots', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('eventid');
             $table->integer('slotid');
             $table->string('emailid');
             $table->boolean('response')->default(false);
+            // $table->primary(['eventid','emailid','slotid']);
             $table->timestamps();
         });
     }

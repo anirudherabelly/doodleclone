@@ -29,7 +29,8 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <!-- {{ config('app.name', 'Laravel') }} -->
+                        Doodle
                     </a>
                 </div>
 
@@ -62,6 +63,11 @@
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('home') }}">
+                                            Dashboard
+                                        </a>
                                     </li>
                                 </ul>
                             </li>

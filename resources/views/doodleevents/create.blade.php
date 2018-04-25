@@ -40,7 +40,7 @@
             {!! Form::label('location', 'Location:') !!}
             {!! Form::select('location', ['Skype' => 'Skype Meeting', 'TBD' => 'To be Decided', 'WebEx' => 'Cisco WebEx'], null, ['class' =>'form-control','placeholder' => 'Pick a Location for the Meeting...']); !!}
             {!! Form::label('description', 'Description:') !!}
-            {!! Form::textarea('description', 'Optional note',['class'=>'form-control']) !!}
+            {!! Form::textarea('description', '',['class'=>'form-control','placeholder'=>'Optional note']) !!}
             <!-- <table class="table" id="myTable">
               <tr>
               <td>

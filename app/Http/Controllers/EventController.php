@@ -10,6 +10,7 @@ use App\EventSlot;
 use App\Participant;
 use App\EventParticipation;
 use App\EventParticipationSlot;
+use Illuminate\Support\Facades\DB;
 class EventController extends Controller
 {
     /**
@@ -72,26 +73,35 @@ class EventController extends Controller
         $starttimes=$request->starttime;
         $endtimes=$request->endtime;
 
-        $participant=new Participant;
-        $participant->name=$user->name;
-        $participant->emailid=$event->emailid;
-        $participant->save();
+        $participant=Participant::where('emailid',$user->email)->get();
+        if(!isset($participant))
+        {
+          $participant=new Participant;
+          $participant->name=$user->name;
+          $participant->emailid=$event->emailid;
+          $participant->save();
+        }
 
-        $eventParticipation= new EventParticipation;
-        $eventParticipation->eventid=$event->id;
-        $eventParticipation->emailid=$event->emailid;
-        $eventParticipation->save();
+        $eventParticipation=EventParticipation::where('emailid',$user->email)->get();
+        // if(!isset($eventParticipation))
+        // {
+            $eventParticipation= new EventParticipation;
+            $eventParticipation->eventid=$event->id;
+            $eventParticipation->emailid=$event->emailid;
+            $eventParticipation->save();
+        // }
 
-        $eventSlot=new EventSlot;
-        $eventParticipationSlot=new EventParticipationSlot;
         foreach($dates as $key=>$value){
+          $eventSlot=new EventSlot;
+          $eventParticipationSlot=new EventParticipationSlot;
+          $eventSlot->slotid=$key+1;
           $eventSlot->eventid=$event->id;
           $eventSlot->date=$value;
           $eventSlot->starttime=$starttimes[$key];
           $eventSlot->endtime=$endtimes[$key];
           $eventSlot->save();
           $eventParticipationSlot->eventid=$event->id;
-          $eventParticipationSlot->slotid=$eventSlot->id;
+          $eventParticipationSlot->slotid=$eventSlot->slotid;
           $eventParticipationSlot->emailid=$event->emailid;
           $eventParticipationSlot->response=true;
           $eventParticipationSlot->save();
@@ -122,7 +132,61 @@ class EventController extends Controller
     public function show($id)
     {
         $event=Event::find($id);
-        return view('doodleevents.show')->with('event',$event);
+        $names=EventParticipation::select('emailid')->where('eventid',$id)->distinct()->get();
+
+        $dates=EventSlot::select('date')->where('eventid',$id)->distinct()->orderBy('date')->get();
+
+        foreach($dates as $key=>$date){
+          $timeslots[$key]=EventSlot::select('starttime','endtime')->where('eventid',$id)->where('date',$date->date)->distinct()->orderBy('starttime')->get();
+        }
+
+        foreach($names as $key=>$name){
+          $variable[$key]=DB::table('event_slots')
+            ->join('event_participation_slots', function($join){
+              $join->on('event_slots.eventid', '=', 'event_participation_slots.eventid');
+              $join->on('event_slots.slotid', '=', 'event_participation_slots.slotid');
+            })
+            ->where('event_slots.eventid',$id)
+            ->where('event_participation_slots.emailid',$name->emailid)
+            ->select('event_slots.*', 'event_participation_slots.*')
+            ->orderBy('event_participation_slots.emailid')
+            ->orderBy('event_slots.date')
+            ->orderBy('event_slots.slotid')
+            ->get();
+
+            // $a=$variable[$key];
+            //
+            // $counter=1;
+            // $prev_date="";
+            // $curr_date="";
+            // $html="";
+            // foreach($a as $joinRes){
+            //   $curr_date=$joinRes->date;
+            //   if(strcmp($curr_date,$prev_date)){
+            //     $counter=1;
+            //   }
+            //
+            //   $countSlots=EventSlot::where('eventid',$id)->where('date',$joinRes->date)->count();
+            //   if($counter==1){
+            //     $html.="<td><table border='0'><tr>";
+            //
+            //   }
+            //   if($joinRes->response==1)
+            //   {
+            //     $html.="<td><button class='btn btn-sm btn-success'><span class='glyphicon glyphicon-ok'></span></button></td>";
+            //   }else {
+            //     $html.="<td><button class='btn btn-sm btn-danger'><span class='glyphicon glyphicon-ok'></span></button></td>";
+            //   }
+            //   if($counter==$countSlots){
+            //     $html.="</tr></table></td>";
+            //   }
+            //   $counter++;
+            //   $prev_date=$curr_date;
+            // }
+            // $helloworld[$key]=$html;
+        }
+
+        return view('doodleevents.show')->with('event',$event)->with('names',$names)->with('dates',$dates)->with('timeslots',$timeslots)->with('variable',$variable)->with('id',$id);
     }
 
     /**

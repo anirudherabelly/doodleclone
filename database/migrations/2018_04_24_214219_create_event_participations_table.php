@@ -16,6 +16,7 @@ class CreateEventParticipationsTable extends Migration
         Schema::create('event_participations', function (Blueprint $table) {
             $table->integer('eventid');
             $table->string('emailid');
+            $table->primary(['eventid','emailid']);
             $table->timestamps();
         });
     }

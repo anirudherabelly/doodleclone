@@ -27,6 +27,8 @@ Route::get('/about', function () {
 // });
 
 Route::resource('events','EventController');
-Route::get('/timeslot/create','TimeSlotController@index')->name('timeslot.show');
-Route::post('/timeslot/create','TimeSlotController@createTimeSlot')->name('timeslot.store');
+Route::get('/participant/create','ParticipantController@index')->name('participant.show');
+Route::post('/participant/create','ParticipantController@createParticipant')->name('participant.create');
+// Route::get('/timeslot/create','TimeSlotController@index')->name('timeslot.show');
+// Route::post('/timeslot/create','TimeSlotController@createTimeSlot')->name('timeslot.store');
 // Route::get('/events', 'HomeController@index')->name('home');

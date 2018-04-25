@@ -31,8 +31,9 @@ class DemoEmail extends Mailable
     public function build()
     {
         // return $this->view('view.name');
-        return $this->from('sender@example.com')
+        return $this->from('doodle@doodleclone.com')
                     ->view('mails.demo')
-                    ->text('mails.demo_plain');
+                    ->text('mails.demo_plain')
+                    ->subject('New Invite');
     }
 }

@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         $useremail = Auth::user()->email;
-        $events = Event::all();
+        $events = Event::where('emailid',$useremail)->get();
         return view('home')->with("events",$events);
     }
 }

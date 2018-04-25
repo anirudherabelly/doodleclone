@@ -14,8 +14,8 @@
                         </div>
                     @endif
                     <div class="createnewevent">
-                      <a href="/events/create"><button type="button" class="btn btn-primary btn-lg">Create new event</button></a>
-                      <a href="/events/create"><button type="button" class="btn btn-primary btn-lg">Create new Poll</button></a>
+                      <a href="/events/create"><button type="button" class="btn btn-primary btn-lg btn-block"><span class="glyphicon glyphicon-plus"></span>  Create new event</button></a>
+                      <!-- <a href="/events/create"><button type="button" class="btn btn-primary btn-lg">Create new Poll</button></a> -->
                     </div>
                      <div class="eventcontainerlist">
                       <h2>Your Events</h2>

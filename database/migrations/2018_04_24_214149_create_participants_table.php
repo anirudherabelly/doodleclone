@@ -15,7 +15,8 @@ class CreateParticipantsTable extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->string('emailid');
-            $table->string('name');
+            $table->string('name')->nullable();
+            $table->primary('emailid');
             $table->timestamps();
         });
     }
