@@ -7,3 +7,6 @@ git clone https://github.com/nambiarvijay/doodleclone.git
 cd doodleclone
 composer install (this will create 'vendor' folder and download all packages)
 Create and edit .env file
+
+If the .env file generated is empty or missing , copy from .env.example.
+Change the values for the mysql DB name, username and password.
