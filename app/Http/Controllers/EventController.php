@@ -116,7 +116,9 @@ class EventController extends Controller
           $emailerList=explode(";",$emailerListString );
           foreach($emailerList as $emailTo)
           {
-            Mail::to($emailTo)->send(new DemoEmail(route('events.show',$event->id)));
+            if($emailTo!=""){
+              Mail::to($emailTo)->send(new DemoEmail(route('events.show',$event->id)));
+            }
           }
         }
         //redirect

@@ -1,7 +1,7 @@
-Hello Receiver,
-This is a demo email for testing purposes! Also, it's the HTML version.
+Hello,
+This is a demo email for testing purposes!
 
 {{$link}}
 
 Thank You,
-Vijay
+Doodle

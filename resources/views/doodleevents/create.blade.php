@@ -26,8 +26,8 @@
         </script>
         <div class="container">
           <div class="row">
-            <h1>Create New Event</h1>
-            <h3>What's the occasion?</h3>
+            <h1>Welcome</h1>
+            <h3>Create New Event</h3>
             <hr>
             <div class="col-md-8 col-md-offset-2">
             <!-- <form>

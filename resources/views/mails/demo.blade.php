@@ -14,8 +14,14 @@ Thank You,
             <div class="panel panel-default">
                 <div class="panel-heading">You have been invited to a poll for an event!</div>
                 <div class="panel-body">
-                  Click here to register your response : <a href="{{ $link }}">{{ $link }}</a>
+                    Click here to register your response : <a href="{{ $link }}">{{ $link }}</a>
+                    <br>
+                    <br>
+                    Regards,
+                    <br>
+                    Doodle Support
                 </div>
+
             </div>
         </div>
     </div>
